@@ -1,0 +1,30 @@
+<div class="container">
+<h1>Customer Details</h1>
+<hr>
+<div class="table-container">
+    <table>
+      <thead>
+        <tr>
+            <th>CustomerID</th>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customerData">
+          <td>{{ customer.customer_id }}</td>
+          <td>{{ customer.customer_name }}</td>
+          <td>{{ customer.company_name }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.role[0].roleName}}</td>
+          
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

@@ -1,0 +1,49 @@
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form class="login" (ngSubmit)="onSubmit()" >
+				<div>
+				<!-- <button class="btn fas" routerLink="/admin-login">ADMIN Log In</button> -->
+				</div>
+                <h3>User Sign up</h3>
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input type="text" class="login__input" [(ngModel)]="userfield.customer_id"  name="customer_id" placeholder="CUSTOMER ID">
+				</div>
+                <div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input type="text" class="login__input" [(ngModel)]="userfield.customer_name
+					"  name="customer_name" placeholder="FULL NAME">
+				</div>
+                <div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input type="text" class="login__input" [(ngModel)]="userfield.company_name"  name="company_name" placeholder="COMPANY NAME">
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input type="text" class="login__input" [(ngModel)]="userfield.email"  name="email" placeholder="EMAIL">
+				</div>
+                <div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input type="password" class="login__input" [(ngModel)]="userfield.customerPassword"  name="current-password" placeholder="PASSWORD" autocomplete="off">
+				</div>
+
+               
+				
+
+
+				<button class="button login__submit" type="submit" >
+					<span class="button__text">SignUp</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>				
+			</form>
+			
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>		
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>		
+	</div>
+</div>

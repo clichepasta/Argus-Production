@@ -1,0 +1,102 @@
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form class="login" (ngSubmit)="OnSubmit()">
+				<div>
+				<button class="btn fas" routerLink="/customer-login">CUSTOMER Log In</button>
+				</div>
+                <h3>ADMIN LOG IN</h3>
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input type="text" class="login__input" [(ngModel)]="credentials.email" name="email" placeholder="User name / Email">
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input type="password" class="login__input" [(ngModel)]="credentials.password" name="password" placeholder="Password">
+				</div>
+
+				
+
+
+				<button class="button login__submit" type="submit" >
+					<span class="button__text">Log In Now</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>				
+			</form>
+			<a href="/sign-up" >Don’t have an account? Sign up</a>
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>		
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>		
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+    <form>
+      <div class="row">
+        <h2 style="text-align:center">LOG IN TO PRODUCTION</h2>
+        <div class="col">
+          <input type="text" name="username" placeholder="Username" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <input type="submit" value="Login">
+        </div>
+  
+      </div>
+    </form>
+</div>
+
+<div class="bottom-container">
+    <div class="row">
+      <div class="col1">
+        <a href="#" style="color:white" class="btn">Sign up</a>
+      </div>
+      <div class="col1">
+        <a href="#" style="color:white" class="btn">Forgot password?</a>
+      </div>
+    </div>
+</div> -->

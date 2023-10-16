@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Product Details</h1>
+    <hr>
+    <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Capacity per day</th>
+                <th>Price</th>
+                
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prod of product">
+              <td>{{ prod.product_id }}</td>
+              <td>{{ prod.product_name }}</td>
+              <td>{{ prod.capacity_per_day }}</td>
+              <td>Rs {{ prod.selling_price }}</td> 
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </div>

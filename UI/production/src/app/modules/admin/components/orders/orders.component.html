@@ -1,0 +1,28 @@
+<div class="container">
+    <h1>Order Details</h1>
+    <hr>
+    <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+                <th>OrderID</th>
+                <th>CustomerID</th>
+                <th>Deadline</th>
+                <th>Time Required</th>
+                <th>Profit Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orderData">
+              <td>{{ order.order_id }}</td>
+              <td>{{ order.customer_id }}</td>
+              <td>{{ order.deadline}}</td>
+              <td>{{ order.time_required }}</td>
+              <td>{{ order.profit_point}}</td>
+              
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </div>
