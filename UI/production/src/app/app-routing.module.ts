@@ -10,7 +10,7 @@ import { DemoComponent } from './demo/demo.component';
 const routes: Routes = [
   { path: 'login', component: LogInComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'demo', component: DemoComponent },
+  { path: 'demo', component: DemoComponent,canActivate:[AuthGuard] },
 
   {path: 'customer-login', component: CustomerLoginComponent},
 

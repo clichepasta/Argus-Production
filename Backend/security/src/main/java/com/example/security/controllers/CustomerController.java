@@ -3,6 +3,8 @@ package com.example.security.controllers;
 
 import com.example.security.entities.Customer;
 import com.example.security.entities.OrderDetails;
+import com.example.security.entities.OrderedProduct;
+import com.example.security.entities.OrderedProductId;
 import com.example.security.repositories.CustomerRepo;
 import com.example.security.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @Autowired
-  UserDetailsService userDetailsService;
+    UserDetailsService userDetailsService;
 
     @Autowired
     private CustomerRepo customerRepo;
@@ -57,6 +59,18 @@ public class CustomerController {
   public Customer getLoggedInUser(Principal principal){
     return ((Customer)this.userDetailsService.loadUserByUsername(principal.getName()));
 
+  }
+
+  @GetMapping("/{customer_id}")
+  public ResponseEntity<List> getCustomerDetails(@PathVariable int customer_id){
+
+    List details= customerService.findCustomerById(customer_id);
+
+    if(details == null) {
+      return new ResponseEntity<>(details, HttpStatus.UNAUTHORIZED);
+    }
+
+    return new ResponseEntity<List>(details, HttpStatus.OK);
   }
 
 

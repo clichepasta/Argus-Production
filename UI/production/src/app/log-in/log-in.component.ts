@@ -29,7 +29,24 @@ export class LogInComponent {
      this.loginService.generateToken(this.credentials).subscribe((response:any)=>{
            console.log('Login success',response.jwtToken);
            this.loginService.loginUser(response.jwtToken)
-           this.userRouting();
+          //  this.userRouting();
+          this.loginService.getCurrentUser(response.jwtToken).subscribe((user:any)=>{
+
+            this.loginService.setUser(user);
+      
+            console.log(user);
+      
+      
+            if(this.loginService.getUserRole()=='ROLE_ADMIN'){
+              window.location.href='/admin';
+             }
+             else if(this.loginService.getUserRole()=='ROLE_CUSTOMER'){
+              window.location.href='/demo';
+      
+             }
+      
+      
+           });
 
            
            },
@@ -50,27 +67,27 @@ export class LogInComponent {
      
   }
 
-  userRouting(){
+  // userRouting(){
 
-    this.loginService.getCurrentUser().subscribe((user:any)=>{
+  //   this.loginService.getCurrentUser().subscribe((user:any)=>{
 
-      this.loginService.setUser(user);
+  //     this.loginService.setUser(user);
 
-      console.log(user);
-
-
-      if(this.loginService.getUserRole()=='ROLE_ADMIN'){
-        window.location.href='/admin';
-       }
-       else if(this.loginService.getUserRole()=='ROLE_CUSTOMER'){
-        window.location.href='/demo';
-
-       }
+  //     console.log(user);
 
 
-     });
+  //     if(this.loginService.getUserRole()=='ROLE_ADMIN'){
+  //       window.location.href='/admin';
+  //      }
+  //      else if(this.loginService.getUserRole()=='ROLE_CUSTOMER'){
+  //       window.location.href='/demo';
 
-  }
+  //      }
+
+
+  //    });
+
+  // }
 
 login(){
   console.log("clicked");

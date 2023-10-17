@@ -3,6 +3,7 @@ package com.example.security.services;
 
 import com.example.security.entities.Customer;
 import com.example.security.entities.OrderDetails;
+import com.example.security.entities.OrderedProduct;
 import com.example.security.entities.Role;
 import com.example.security.repositories.CustomerRepo;
 import com.example.security.securities.JwtAuthenticationFilter;
@@ -14,6 +15,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.*;
 
@@ -70,6 +72,20 @@ public class CustomerService {
 
   public void deleteById(int theId) {
     customerRepo.deleteById(theId);
+  }
+
+
+  public List findCustomerById( int customer_id) {
+    Customer customer=customerRepo.findByCustomerId(customer_id);
+    if(jwtFilter.isSameCustomer(customer)){
+      return customerRepo.findCustomerDetailsById(customer_id);
+    }
+    else {
+      return null;
+    }
+
+//
+//          return customerRepo.findCustomerDetailsById(customer_id);
   }
 
 

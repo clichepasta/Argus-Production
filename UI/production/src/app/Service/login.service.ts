@@ -17,10 +17,10 @@ export class LoginService {
     return this.http.post(`${this.url}/auth/login`, credentials);
   }
 
-  public getCurrentUser()
+  public getCurrentUser(token: any)
  {
 
-  var token= this.getToken();
+ 
  return this.http.get(`${this.url}/customer/current-user`,{
   headers: {
     Authorization: `Bearer ${token}`
@@ -72,6 +72,7 @@ export class LoginService {
   //for user logout
   logOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user ');
     console.log("token removed")
     return true;
   }

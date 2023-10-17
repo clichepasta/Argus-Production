@@ -2,6 +2,8 @@ package com.example.security.config;
 
 import com.example.security.securities.JwtAuthenticationEntryPoint;
 import com.example.security.securities.JwtAuthenticationFilter;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.sql.DataSource;
 
 @Configuration
+@Slf4j
 public class SecurityConfig {
     @Autowired
     private JwtAuthenticationEntryPoint point;

@@ -17,7 +17,8 @@ public class Customer implements UserDetails {
 
 
   @Id
-    private int customer_id;
+  @Column(name = "customer_id")
+    private int customerId;
 
     private String email;
 
@@ -56,11 +57,11 @@ public class Customer implements UserDetails {
 
 
     public int getCustomer_id() {
-        return customer_id;
+        return customerId;
     }
 
     public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+        this.customerId = customer_id;
     }
 
     public String getCustomer_name() {
@@ -126,7 +127,7 @@ public class Customer implements UserDetails {
   @Override
   public String toString() {
     return "Customer{" +
-      "customer_id=" + customer_id +
+      "customer_id=" + customerId +
       ", email='" + email + '\'' +
       ", customer_name='" + customer_name + '\'' +
       ", company_name='" + company_name + '\'' +

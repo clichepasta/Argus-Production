@@ -1,6 +1,6 @@
 package com.example.security.securities;
 
-import com.example.security.securities.JwtHelper;
+import com.example.security.entities.Customer;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -8,6 +8,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,13 @@ import java.io.IOException;
 
 @Component
 @Service
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private Logger logger = LoggerFactory.getLogger(OncePerRequestFilter.class);
 
-  Claims claims;
+
+
+    Claims claims = null;
     @Autowired
     private JwtHelper jwtHelper;
 
@@ -40,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestHeader = request.getHeader("Authorization");
-        logger.info(" Header :  {}", requestHeader);
+//        logger.info(" Header :  {}", requestHeader);
         String username = null;
         String token = null;
 
@@ -106,6 +109,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   public boolean isCustomer(){
 
     return "ROLE_CUSTOMER".equalsIgnoreCase((String) claims.get("role"));
+  }
+
+  public boolean isSameCustomer(Customer customer){
+    return customer.getEmail().equalsIgnoreCase((String) claims.get("sub"));
   }
 
 
