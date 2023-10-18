@@ -21,64 +21,62 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*")
-public class  AuthController {
+public class AuthController {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-
-    @Autowired
-    private AuthenticationManager manager;
+  @Autowired
+  private UserDetailsService userDetailsService;
 
 
-    @Autowired
-    private JwtHelper helper;
+  @Autowired
+  private AuthenticationManager manager;
 
 
-    @Autowired
-    private CustomerService customerService;
+  @Autowired
+  private JwtHelper helper;
 
 
-    @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
-
-      this.doAuthenticate(request.getEmail(), request.getPassword());
+  @Autowired
+  private CustomerService customerService;
 
 
-      UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+  @PostMapping("/login")
+  public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
+
+    this.doAuthenticate(request.getEmail(), request.getPassword());
 
 
-      String token = this.helper.generateToken(userDetails,customerService.findRoleByEmailOfCustomer(request.getEmail()));
+    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
-      JwtResponse response = JwtResponse.builder()
-        .jwtToken(token)
-        .username(userDetails.getUsername()).build();
-      System.out.println(token);
-      return new ResponseEntity<>(response, HttpStatus.OK);
+
+    String token = this.helper.generateToken(userDetails, customerService.findRoleByEmailOfCustomer(request.getEmail()));
+
+    JwtResponse response = JwtResponse.builder().jwtToken(token).username(userDetails.getUsername()).build();
+    System.out.println(token);
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+
+  private void doAuthenticate(String email, String password) {
+
+    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
+    try {
+      manager.authenticate(authentication);
+
+
+    } catch (BadCredentialsException e) {
+      throw new BadCredentialsException(" Invalid Username or Password  !!");
     }
 
-    private void doAuthenticate(String email, String password) {
+  }
 
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
-        try {
-            manager.authenticate(authentication);
-
-
-        } catch (BadCredentialsException e) {
-            throw new BadCredentialsException(" Invalid Username or Password  !!");
-        }
-
-    }
-
-    @ExceptionHandler(BadCredentialsException.class)
-    public String exceptionHandler() {
-        return "Credentials Invalid !!";
-    }
+  @ExceptionHandler(BadCredentialsException.class)
+  public String exceptionHandler() {
+    return "Credentials Invalid !!";
+  }
 
 
-    @PostMapping("/create-user")
-    public Customer createCustomer(@RequestBody Customer customer){
+  @PostMapping("/create-user")
+  public Customer createCustomer(@RequestBody Customer customer) {
 
-      return customerService.addCustomer(customer);
-    }
+    return customerService.addCustomer(customer);
+  }
 }

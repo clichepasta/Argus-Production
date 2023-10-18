@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RejectedOrdersRepo extends JpaRepository<RejectedOrders,Integer> {
+public interface RejectedOrdersRepo extends JpaRepository<RejectedOrders, Integer> {
 
-    @Query(value = "SELECT * FROM order_details  WHERE status=-1 Order by profit_point DESC", nativeQuery = true)
-    List<OrderDetails> findRejecteedOrders();
+  @Query(value = "SELECT * FROM order_details  WHERE status=-1 Order by profit_point DESC", nativeQuery = true)
+  List<OrderDetails> findRejecteedOrders();
 }

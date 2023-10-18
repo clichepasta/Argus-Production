@@ -15,24 +15,25 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
-    private ProductService productService;
+  @Autowired
+  private ProductService productService;
 
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+  @Autowired
+  public ProductController(ProductService productService) {
+    this.productService = productService;
+  }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Product>> getAllProducts(){
-        List<Product> products = productService.findAllProducts();
-        return  new ResponseEntity<>(products, HttpStatus.OK);
-    }
+  @GetMapping("/all")
+  public ResponseEntity<List<Product>> getAllProducts() {
+    List<Product> products = productService.findAllProducts();
+    return new ResponseEntity<>(products, HttpStatus.OK);
+  }
 
-    @PostMapping("/add")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product){
-        Product new_product = productService.addProduct(product);
-        return  new ResponseEntity<>(new_product, HttpStatus.CREATED);
-    }
+  @PostMapping("/add")
+  public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+    Product new_product = productService.addProduct(product);
+    return new ResponseEntity<>(new_product, HttpStatus.CREATED);
+  }
 
 
 }

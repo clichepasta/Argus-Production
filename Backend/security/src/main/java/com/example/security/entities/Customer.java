@@ -1,6 +1,7 @@
 package com.example.security.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,83 +11,30 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Customer")
-
+@Data
 public class Customer implements UserDetails {
 
 
-
-
   @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @Column(name = "customer_id")
-    private int customerId;
+  private int customerId;
 
-    private String email;
+  @Column(name = "email")
+  private String email;
 
-    public String getEmail() {
-        return email;
-    }
+  @Column(name = "customer_name")
+  private String customerName;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  @Column(name = "company_name")
+  private String companyName;
 
-    private String customer_name;
-    private String company_name;
+  @Column(name = "customer_password")
+  private String customerPassword;
 
-    private String customerPassword;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "CUSTOMER_ROLE",
-            joinColumns = {
-                    @JoinColumn(name = "CUSTOMER_ID")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "ROLE_ID")
-            }
-    )
-    private Set<Role> role;
-
-
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
-    }
-
-
-    public int getCustomer_id() {
-        return customerId;
-    }
-
-    public void setCustomer_id(int customer_id) {
-        this.customerId = customer_id;
-    }
-
-    public String getCustomer_name() {
-        return customer_name;
-    }
-
-    public void setCustomer_name(String customer_name) {
-        this.customer_name = customer_name;
-    }
-
-    public String getCompany_name() {
-        return company_name;
-    }
-
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
-    }
-
-    public String getCustomerPassword() {
-        return customerPassword;
-    }
-
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
-    }
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(name = "CUSTOMER_ROLE", joinColumns = {@JoinColumn(name = "CUSTOMER_ID")}, inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
+  private Set<Role> role;
 
 
   @Override
@@ -126,13 +74,6 @@ public class Customer implements UserDetails {
 
   @Override
   public String toString() {
-    return "Customer{" +
-      "customer_id=" + customerId +
-      ", email='" + email + '\'' +
-      ", customer_name='" + customer_name + '\'' +
-      ", company_name='" + company_name + '\'' +
-      ", customerPassword='" + customerPassword + '\'' +
-      ", role=" + role +
-      '}';
+    return "Customer{" + "customer_id=" + customerId + ", email='" + email + '\'' + ", customer_name='" + customerName + '\'' + ", company_name='" + companyName + '\'' + ", customerPassword='" + customerPassword + '\'' + ", role=" + role + '}';
   }
 }

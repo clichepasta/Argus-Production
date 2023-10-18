@@ -10,19 +10,19 @@ import java.util.List;
 
 @Service
 public class ProductService {
-    private final ProductRepo productRepo;
+  private final ProductRepo productRepo;
 
-    @Autowired
-    public ProductService(ProductRepo productRepo){
-        this.productRepo=productRepo;
-    }
+  @Autowired
+  public ProductService(ProductRepo productRepo) {
+    this.productRepo = productRepo;
+  }
 
-    public Product addProduct(Product product){
-        product.setProfit();
-        return productRepo.save(product);}
+  public Product addProduct(Product product) {
+    return productRepo.save(product);
+  }
 
-    public List<Product> findAllProducts(){
-        return productRepo.findAll();
-    }
+  public List<Product> findAllProducts() {
+    return productRepo.findAll();
+  }
 
 }

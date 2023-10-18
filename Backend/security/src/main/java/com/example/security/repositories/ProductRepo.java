@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepo extends JpaRepository<Product,Integer> {
+public interface ProductRepo extends JpaRepository<Product, Integer> {
 
-    @Query(value = "SELECT * FROM product ", nativeQuery = true)
-    List<Product> getProductList();
+  @Query(value = "SELECT * FROM product ", nativeQuery = true)
+  List<Product> getProductList();
 
-    @Query(value = "SELECT chain_change_time FROM product where product_id = :product_id ", nativeQuery = true)
-    double getChainChangeTime(@Param("product_id") int product_id);
+  @Query(value = "SELECT chain_change_time FROM product where product_id = :product_id ", nativeQuery = true)
+  double getChainChangeTime(@Param("product_id") int product_id);
 }

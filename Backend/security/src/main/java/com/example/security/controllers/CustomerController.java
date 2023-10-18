@@ -22,51 +22,51 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    @Autowired
-    private final CustomerService customerService;
+  @Autowired
+  private final CustomerService customerService;
 
-    @Autowired
-    UserDetailsService userDetailsService;
+  @Autowired
+  UserDetailsService userDetailsService;
 
-    @Autowired
-    private CustomerRepo customerRepo;
+  @Autowired
+  private CustomerRepo customerRepo;
 
 
-    @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+  @Autowired
+  public CustomerController(CustomerService customerService) {
+    this.customerService = customerService;
+  }
 
-    @PostMapping("/add")
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer){
-        Customer new_customer = customerService.addCustomer(customer);
-        return  new ResponseEntity<>(new_customer, HttpStatus.CREATED);
-    }
+  @PostMapping("/add")
+  public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+    Customer new_customer = customerService.addCustomer(customer);
+    return new ResponseEntity<>(new_customer, HttpStatus.CREATED);
+  }
 
   @GetMapping("/all")
-  public ResponseEntity<List<Customer>> getAllCustomer(){
+  public ResponseEntity<List<Customer>> getAllCustomer() {
 
     List<Customer> customers = customerService.findCustomerByrole();
 //        List<OrderDetails> demo = orderService.getSortedOrderDetails();
-    if(customers==null){
+    if (customers == null) {
       return new ResponseEntity<>(customers, HttpStatus.UNAUTHORIZED);
     }
 
-    return  new ResponseEntity<>(customers, HttpStatus.OK);
+    return new ResponseEntity<>(customers, HttpStatus.OK);
   }
 
   @GetMapping("/current-user")
-  public Customer getLoggedInUser(Principal principal){
-    return ((Customer)this.userDetailsService.loadUserByUsername(principal.getName()));
+  public Customer getLoggedInUser(Principal principal) {
+    return ((Customer) this.userDetailsService.loadUserByUsername(principal.getName()));
 
   }
 
   @GetMapping("/{customer_id}")
-  public ResponseEntity<List> getCustomerDetails(@PathVariable int customer_id){
+  public ResponseEntity<List> getCustomerDetails(@PathVariable int customer_id) {
 
-    List details= customerService.findCustomerById(customer_id);
+    List details = customerService.findCustomerById(customer_id);
 
-    if(details == null) {
+    if (details == null) {
       return new ResponseEntity<>(details, HttpStatus.UNAUTHORIZED);
     }
 
@@ -74,30 +74,15 @@ public class CustomerController {
   }
 
 
-
-  @GetMapping("/forAdmin")
-  public String forAdmin(){
-    return customerService.findRoleByEmailOfCustomer("smistry@argusoft.com");
-  }
-
-  @GetMapping("/forUser")
-
-  public String forUser(){
-    return "This URL is only accessible to the user";
-  }
-
-
-
-
   @DeleteMapping("/delete/{customer_id}")
-  public String deleteCustomer(@PathVariable int customer_id){
+  public String deleteCustomer(@PathVariable int customer_id) {
     Customer theCustomer = customerService.findById(customer_id);
 
     if (theCustomer == null) {
       throw new RuntimeException("Customer id not found - " + customer_id);
     }
     customerService.deleteById(customer_id);
-    return  "Deleted Customer id - " + customer_id;
+    return "Deleted Customer id - " + customer_id;
   }
 
 

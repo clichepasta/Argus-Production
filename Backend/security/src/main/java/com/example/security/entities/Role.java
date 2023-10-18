@@ -1,34 +1,20 @@
 package com.example.security.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Role {
 
-    @Id
-    private String roleName;
-
-    private String roleDescription;
-
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getRoleDescription() {
-        return roleDescription;
-    }
-
-    public void setRoleDescription(String roleDescription) {
-        this.roleDescription = roleDescription;
-    }
-
-
-
+  @Id
+  @Column(name = "role_name")
+  private String roleName;
+  @Column(name = "role_description")
+  private String roleDescription;
 
 }

@@ -13,19 +13,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepo extends JpaRepository<Customer,Integer> {
+public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 
+  Optional<Customer> findByEmail(String email);
 
+  Customer findByCustomerId(int customer_id);
 
   @Query(value = "SELECT c.* FROM customer c JOIN customer_role cr ON c.customer_id = cr.customer_id WHERE cr.role_id = 'ROLE_CUSTOMER';", nativeQuery = true)
   List<Customer> findCustomerByrole();
 
   @Query(value = "SELECT c.* FROM customer JOIN customer_role cr ON c.customer_id = cr.customer_id WHERE cr.role_id = 'ROLE_ADMIN';", nativeQuery = true)
   List<Customer> findAdminByrole();
-
-    public Optional<Customer> findByEmail(String email);
-
-    public Customer findByCustomerId(int customer_id);
 
   @Query(value = "SELECT cr.role_id FROM customer_role cr JOIN customer c ON cr.customer_id = c.customer_id WHERE c.email = :email", nativeQuery = true)
   String findRoleByEmail(@Param("email") String email);

@@ -1,8 +1,6 @@
 package com.example.security.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,110 +9,118 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "OrderDetails")
-@Getter
-@Setter
 @ToString
 public class OrderDetails {
 
-    public OrderDetails() {
-    }
 
-    @Id
-    private int order_id;
-    private int customer_id;
-    private double amount;
-    private double profitAmount;
-    private int deadline;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Column(name = "order_id")
+  private int orderId;
 
-    private int status=0;
+  @Column(name = "customer_id")
+  private int customerId;
 
-    public double getConstraintTime() {
-        return constraintTime;
-    }
+  @Column(name = "amount")
+  private double amount;
 
-    public void setConstraintTime(double constraintTime) {
-        this.constraintTime = constraintTime;
-    }
+  @Column(name = "profit_amount")
+  private double profitAmount;
 
-    private double constraintTime;
+  @Column(name = "deadline")
+  private int deadline;
 
-    public int getStatus() {
-        return status;
-    }
+  @Column(name = "status")
+  private int status = 0;
+  @Column(name = "time_required")
+  private double timeRequired;
+  @Column(name = "date_and_time")
+  private LocalDateTime dateAndTime;
+  @Column(name = "profit_point")
+  private double profit_point;
+  @Column(name = "constraint_time")
+  private double constraintTime;
+  public double getConstraintTime() {
+    return constraintTime;
+  }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+  public void setConstraintTime(double constraintTime) {
+    this.constraintTime = constraintTime;
+  }
 
 
 
-    public double getProfitPoint() {
-        return profit_point;
-    }
+  public int getStatus() {
+    return status;
+  }
 
-    public void setProfitPoint(double profit_point) {
-        this.profit_point = profit_point;
-    }
+  public void setStatus(int status) {
+    this.status = status;
+  }
 
-    private double time_required;
-    private LocalDateTime dateAndTime;
-    private double profit_point;
 
-    //getter setter
+  public double getProfitPoint() {
+    return profit_point;
+  }
 
-    public int getOrder_id() {
-        return order_id;
-    }
+  public void setProfitPoint(double profit_point) {
+    this.profit_point = profit_point;
+  }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
-    }
 
-    public int getCustomer_id() {
-        return customer_id;
-    }
+  public int getOrderId() {
+    return orderId;
+  }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
-    }
+  public void setOrderId(int orderId) {
+    this.orderId = orderId;
+  }
 
-    public double getAmount() {
-        return amount;
-    }
+  public int getCustomerId() {
+    return customerId;
+  }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+  public void setCustomerId(int customerId) {
+    this.customerId = customerId;
+  }
 
-    public double getProfitAmount() {
-        return profitAmount;
-    }
+  public double getAmount() {
+    return amount;
+  }
 
-    public void setProfitAmount(double profitAmount) {
-        this.profitAmount = profitAmount;
-    }
+  public void setAmount(double amount) {
+    this.amount = amount;
+  }
 
-    public int getDeadline() {
-        return deadline;
-    }
+  public double getProfitAmount() {
+    return profitAmount;
+  }
 
-    public void setDeadline(int deadline) {
-        this.deadline = deadline;
-    }
+  public void setProfitAmount(double profitAmount) {
+    this.profitAmount = profitAmount;
+  }
 
-    public double getTime_required() {
-        return time_required;
-    }
+  public int getDeadline() {
+    return deadline;
+  }
 
-    public void setTime_required(double time_required) {
-        this.time_required = time_required;
-    }
+  public void setDeadline(int deadline) {
+    this.deadline = deadline;
+  }
 
-    public LocalDateTime getDateAndTime() {
-        return dateAndTime;
-    }
+  public double getTimeRequired() {
+    return timeRequired;
+  }
 
-    public void setDateAndTime(LocalDateTime dateAndTime) {
-        this.dateAndTime = dateAndTime;
-    }
+  public void setTimeRequired(double timeRequired) {
+    this.timeRequired = timeRequired;
+  }
+
+  public LocalDateTime getDateAndTime() {
+    return dateAndTime;
+  }
+
+  public void setDateAndTime(LocalDateTime dateAndTime) {
+    this.dateAndTime = dateAndTime;
+  }
 }

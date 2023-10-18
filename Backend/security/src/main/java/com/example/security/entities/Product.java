@@ -1,8 +1,6 @@
 package com.example.security.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.ToString;
 
 @Entity
@@ -10,89 +8,84 @@ import lombok.ToString;
 @ToString
 public class Product {
 
-    @Id
-    private int product_id;
-    private String product_name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Column(name = "product_id")
+  private int productId;
 
-    private int capacityPerDay;
+  @Column(name = "product_name")
+  private String productName;
 
-    public double getChain_change_time() {
-        return chain_change_time;
-    }
+  @Column(name = "capacity_per_day")
+  private int capacityPerDay;
 
-    public void setChain_change_time(double chain_change_time) {
-        this.chain_change_time = chain_change_time;
-    }
+  @Column(name = "manufacture_price")
+  private double manufacturePrice;
 
-    private double manufacture_price;
-    private double selling_price;
-    private double profit;
-    private double chain_change_time;
+  @Column(name = "selling_price")
+  private double sellingPrice;
 
-    public Product(int product_id, String product_name, int capacityPerDay, double manufacture_price, double selling_price) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.capacityPerDay = capacityPerDay;
-        this.manufacture_price = manufacture_price;
-        this.selling_price = selling_price;
-        this.profit=selling_price-manufacture_price;
-    }
+  @Column(name = "profit")
+  private double profit;
 
-    public int getProduct_id() {
-        return product_id;
-    }
+  @Column(name = "chain_change_time")
+  private double chainChangeTime;
 
-    public int getCapacityPerDay() {
-        return capacityPerDay;
-    }
+  public int getProductId() {
+    return productId;
+  }
 
-    public Product() {
-    }
+  public void setProductId(int productId) {
+    this.productId = productId;
+  }
 
-    public void setCapacityPerDay(int capacityPerDay) {
-        this.capacityPerDay = capacityPerDay;
-    }
+  public String getProductName() {
+    return productName;
+  }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
-    }
+  public void setProductName(String productName) {
+    this.productName = productName;
+  }
 
-    public String getProduct_name() {
-        return product_name;
-    }
+  public int getCapacityPerDay() {
+    return capacityPerDay;
+  }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
-    }
+  public void setCapacityPerDay(int capacityPerDay) {
+    this.capacityPerDay = capacityPerDay;
+  }
 
-    public double getManufacture_price() {
-        return manufacture_price;
-    }
+  public double getManufacturePrice() {
+    return manufacturePrice;
+  }
 
-    public void setManufacture_price(double manufacture_price) {
-        this.manufacture_price = manufacture_price;
-    }
+  public void setManufacturePrice(double manufacturePrice) {
+    this.manufacturePrice = manufacturePrice;
+  }
 
-    public double getSelling_price() {
-        return selling_price;
-    }
+  public double getSellingPrice() {
+    return sellingPrice;
+  }
 
-    public void setSelling_price(double selling_price) {
-        this.selling_price = selling_price;
-    }
+  public void setSellingPrice(double sellingPrice) {
+    this.sellingPrice = sellingPrice;
+  }
 
-    public double getProfit() {
-        return selling_price - manufacture_price;
-    }
+  public double getProfit() {
+     return sellingPrice - manufacturePrice;
+  }
 
-    public void setProfit(double profit) {
-        this.profit = profit;
-    }
+  public void setProfit(double profit) {
+    this.profit = profit;
+  }
 
+  public double getChainChangeTime() {
+    return chainChangeTime;
+  }
 
+  public void setChainChangeTime(double chainChangeTime) {
+    this.chainChangeTime = chainChangeTime;
+  }
 
-    public void setProfit() {
-        this.profit = getProfit();
-    }
 
 }

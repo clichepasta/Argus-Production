@@ -21,8 +21,8 @@ import java.util.*;
 
 @Service
 public class CustomerService {
-    @Autowired
-    private final CustomerRepo customerRepo;
+  @Autowired
+  private final CustomerRepo customerRepo;
 
 
   @Autowired
@@ -36,85 +36,77 @@ public class CustomerService {
   private JavaMailSender javaMailSender;
 
   @Autowired
-  public CustomerService(CustomerRepo customerRepo) {
-        this.customerRepo = customerRepo;
-        this.javaMailSender = javaMailSender;
+  public CustomerService(CustomerRepo customerRepo, JavaMailSender javaMailSender) {
+    this.customerRepo = customerRepo;
+    this.javaMailSender = javaMailSender;
+  }
+
+  public Customer addCustomer(Customer customer) {
+
+    customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
+    Customer savedCustomer = customerRepo.save(customer);
+
+
+    sendWelcomeEmail(savedCustomer);
+
+    return savedCustomer;
+
+  }
+
+  public Customer findById(int customerId) {
+    Optional<Customer> result = customerRepo.findById(customerId);
+
+    Customer theCustomer = null;
+
+    if (result.isPresent()) {
+      theCustomer = result.get();
+    } else {
+      // we didn't find the employee
+      throw new RuntimeException("Did not find employee id - " + customerId);
     }
 
-    public Customer addCustomer(Customer customer) {
-
-      customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
-        Customer savedCustomer = customerRepo.save(customer);
-
-
-        sendWelcomeEmail(savedCustomer);
-
-        return savedCustomer;
-
-    }
-
-    public  Customer findById(int customer_id){
-      Optional<Customer> result = customerRepo.findById(customer_id);
-
-      Customer theCustomer = null;
-
-      if (result.isPresent()) {
-        theCustomer = result.get();
-      }
-      else {
-        // we didn't find the employee
-        throw new RuntimeException("Did not find employee id - " + customer_id);
-      }
-
-      return theCustomer;
-    }
-
+    return theCustomer;
+  }
 
   public void deleteById(int theId) {
     customerRepo.deleteById(theId);
   }
 
 
-  public List findCustomerById( int customer_id) {
-    Customer customer=customerRepo.findByCustomerId(customer_id);
-    if(jwtFilter.isSameCustomer(customer)){
-      return customerRepo.findCustomerDetailsById(customer_id);
-    }
-    else {
+  public List findCustomerById(int customerId) {
+    Customer customer = customerRepo.findByCustomerId(customerId);
+    if (jwtFilter.isSameCustomer(customer)) {
+      return customerRepo.findCustomerDetailsById(customerId);
+    } else {
       return null;
     }
 
-//
-//          return customerRepo.findCustomerDetailsById(customer_id);
+  }
+
+  private void sendWelcomeEmail(Customer customer) {
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setFrom("rpatnaik@argusoft.com");
+    message.setTo(customer.getEmail());
+    message.setSubject("Welcome to Our Website");
+    message.setText("Dear " + customer.getCustomerName() + ",\n\nWelcome to our website! Thank you for signing up.");
+
+    javaMailSender.send(message);
+    System.out.println("Mail Send");
   }
 
 
-    private void sendWelcomeEmail(Customer customer) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("rpatnaik@argusoft.com");
-        message.setTo(customer.getEmail());
-        message.setSubject("Welcome to Our Website");
-        message.setText("Dear " + customer.getCustomer_name() + ",\n\nWelcome to our website! Thank you for signing up.");
-
-        javaMailSender.send(message);
-        System.out.println("Mail Send");
-    }
-
-
-  public List<Customer> findAllOrder(){
+  public List<Customer> findAllOrder() {
     return customerRepo.findAll();
   }
 
-  public List<Customer> findCustomerByrole(){
-    if (jwtFilter.isAdmin()){
+  public List<Customer> findCustomerByrole() {
+    if (jwtFilter.isAdmin()) {
       return customerRepo.findCustomerByrole();
     }
     return null;
   }
 
-
-
-  public String findRoleByEmailOfCustomer(String email){
+  public String findRoleByEmailOfCustomer(String email) {
     return customerRepo.findRoleByEmail(email);
   }
 
